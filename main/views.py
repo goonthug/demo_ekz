@@ -111,6 +111,10 @@ def apply(request):
 
     return render(request, 'main/apply.html', {'form': form})
 
+# views.py
+
+def home(request):
+    return render(request, 'main/home.html')
 
 def admin_panel(request):
     if not request.session.get('is_admin'):

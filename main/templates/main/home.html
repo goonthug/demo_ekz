@@ -1,0 +1,160 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Учусь.РФ — Портал онлайн-курсов{% endblock %}
+
+{% block content %}
+<!-- Приветственный блок -->
+<div class="text-center py-5 fade-in">
+    <h1 style="color: #0d47a1; font-weight: 700;">Учусь.РФ</h1>
+    <p class="lead mt-3" style="color: #495057; max-width: 600px; margin: 0 auto;">
+        Профессиональное обучение для вашего карьерного роста. 
+        Повышение квалификации, переподготовка и охрана труда.
+    </p>
+    <div class="mt-4">
+        <a href="{% url 'register' %}" class="btn btn-primary btn-lg me-3">Начать обучение</a>
+        <a href="{% url 'login' %}" class="btn btn-outline-primary btn-lg">Войти</a>
+    </div>
+</div>
+
+<!-- Карточки курсов -->
+<div class="row mt-5 fade-in" style="animation-delay: 0.2s;">
+    <div class="col-md-4 mb-4">
+        <div class="card h-100" style="border-top: 4px solid #0d47a1;">
+            <div class="card-body text-center">
+                <h5 style="color: #0d47a1;">Повышение квалификации</h5>
+                <p style="font-size: 14px; color: #6c757d;">
+                    Актуальные программы для развития профессиональных навыков
+                </p>
+                <ul class="list-unstyled text-start" style="font-size: 14px;">
+                    <li class="mb-2">Python-разработчик</li>
+                    <li class="mb-2">Веб-дизайн</li>
+                    <li class="mb-2">Современные технологии</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="card h-100" style="border-top: 4px solid #d32f2f;">
+            <div class="card-body text-center">
+                <h5 style="color: #d32f2f;">Переподготовка</h5>
+                <p style="font-size: 14px; color: #6c757d;">
+                    Полноценные курсы для смены профессии и получения новой специальности
+                </p>
+                <ul class="list-unstyled text-start" style="font-size: 14px;">
+                    <li class="mb-2">Менеджер проектов</li>
+                    <li class="mb-2">1С:Предприятие</li>
+                    <li class="mb-2">Управление персоналом</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="card h-100" style="border-top: 4px solid #2e7d32;">
+            <div class="card-body text-center">
+                <h5 style="color: #2e7d32;">Охрана труда</h5>
+                <p style="font-size: 14px; color: #6c757d;">
+                    Обязательное обучение по безопасности на производстве
+                </p>
+                <ul class="list-unstyled text-start" style="font-size: 14px;">
+                    <li class="mb-2">Охрана труда на производстве</li>
+                    <li class="mb-2">Пожарная безопасность</li>
+                    <li class="mb-2">Техника безопасности</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Преимущества -->
+<div class="row mt-4 text-center fade-in" style="animation-delay: 0.4s;">
+    <div class="col-md-4 mb-4">
+        <h6>Опытные преподаватели</h6>
+        <p style="font-size: 13px; color: #6c757d;">Эксперты с многолетним стажем</p>
+    </div>
+    <div class="col-md-4 mb-4">
+        <h6>Онлайн-формат</h6>
+        <p style="font-size: 13px; color: #6c757d;">Учитесь из любой точки мира</p>
+    </div>
+    <div class="col-md-4 mb-4">
+        <h6>Сертификат</h6>
+        <p style="font-size: 13px; color: #6c757d;">Официальный документ об обучении</p>
+    </div>
+</div>
+
+<!-- Отзывы -->
+<div class="mt-4 fade-in" style="animation-delay: 0.6s;">
+    <h3 class="text-center mb-4" style="color: #0d47a1;">Отзывы наших студентов</h3>
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <p style="font-size: 14px;">"Отличный курс по Python! Материал подан доступно, много практических заданий. Рекомендую всем начинающим разработчикам."</p>
+                    <small style="color: #0d47a1; font-weight: 500;">Алексей М.</small>
+                    <small class="d-block" style="color: #6c757d;">Студент курса Python-разработчик</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <p style="font-size: 14px;">"Благодаря курсу по управлению проектами я смогла систематизировать свои знания и получить повышение на работе."</p>
+                    <small style="color: #0d47a1; font-weight: 500;">Елена Н.</small>
+                    <small class="d-block" style="color: #6c757d;">Студент курса Менеджер проектов</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .fade-in {
+        opacity: 0;
+        animation: fadeInUp 0.6s ease forwards;
+    }
+    
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    .card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    }
+    
+    .btn-primary {
+        background-color: #0d47a1;
+        border-color: #0d47a1;
+    }
+    
+    .btn-primary:hover {
+        background-color: #0a3d8f;
+        border-color: #0a3d8f;
+    }
+    
+    .btn-outline-primary {
+        color: #0d47a1;
+        border-color: #0d47a1;
+    }
+    
+    .btn-outline-primary:hover {
+        background-color: #0d47a1;
+        color: white;
+    }
+</style>
+{% endblock %}
