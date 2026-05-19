@@ -1,3 +1,9 @@
+import os
+import django
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'portal.settings')
+django.setup()
+
 from main.models import Course
 courses = [
     ('Python-разработчик', 'qualification', 'Курс повышения квалификации по Python'),

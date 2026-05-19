@@ -1,4 +1,5 @@
 import os
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'portal.settings')
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
