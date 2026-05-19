@@ -1,0 +1,49 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Оформление заявки — Учусь.РФ{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card shadow-sm fade-in">
+            <div class="card-body p-4">
+                <h2 class="text-center mb-4" style="color: #0d47a1;">Оформление заявки</h2>
+
+                <form method="post" novalidate>
+                    {% csrf_token %}
+
+                    <div class="mb-3">
+                        <label class="form-label">Выберите курс</label>
+                        {{ form.course }}
+                        {% if form.course.errors %}
+                            <div class="text-danger" style="font-size: 12px;">{{ form.course.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Дата начала обучения</label>
+                        {{ form.start_date }}
+                        {% if form.start_date.errors %}
+                            <div class="text-danger" style="font-size: 12px;">{{ form.start_date.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Способ оплаты</label>
+                        {{ form.payment_method }}
+                        {% if form.payment_method.errors %}
+                            <div class="text-danger" style="font-size: 12px;">{{ form.payment_method.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100">Отправить заявку</button>
+                </form>
+
+                <div class="text-center mt-3">
+                    <a href="{% url 'cabinet' %}" style="font-size: 14px;">Вернуться в личный кабинет</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

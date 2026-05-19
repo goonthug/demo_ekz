@@ -70,7 +70,7 @@ class ApplicationForm(forms.Form):
         widget=forms.DateInput(attrs={'type': 'date', 'class': 'form-control'})
     )
     payment_method = forms.ChoiceField(
-        choices=[('card', 'Банковская карта'), ('transfer', 'Банковский перевод'), ('cash', 'Наличные')],
+        choices=[('card', 'Предоплата по QR-коду'), ('transfer', 'Оплата картой МИР'), ('cash', 'Постоплата в офисе организации')],
         label='Способ оплаты',
         widget=forms.Select(attrs={'class': 'form-select'})
     )

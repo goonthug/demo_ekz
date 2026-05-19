@@ -1,10 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'main/base.html' %}
 
-</body>
-</html>
+{% block title %}Вход — Учусь.РФ{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-4">
+        <div class="card shadow-sm fade-in">
+            <div class="card-body p-4">
+                <h2 class="text-center mb-4" style="color: #0d47a1;">Вход</h2>
+
+                <form method="post" novalidate>
+                    {% csrf_token %}
+
+                    <div class="mb-3">
+                        <label class="form-label">Логин</label>
+                        {{ form.login }}
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Пароль</label>
+                        {{ form.password }}
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100">Войти</button>
+                </form>
+
+                <div class="text-center mt-3">
+                    <a href="{% url 'register' %}" style="font-size: 14px;">Еще не зарегистрированы? <strong>Регистрация</strong></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

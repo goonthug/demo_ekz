@@ -1,10 +1,67 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'main/base.html' %}
 
-</body>
-</html>
+{% block title %}Регистрация — Учусь.РФ{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+        <div class="card shadow-sm fade-in">
+            <div class="card-body p-4">
+                <h2 class="text-center mb-4" style="color: #0d47a1;">Регистрация</h2>
+
+                <form method="post" novalidate>
+                    {% csrf_token %}
+
+                    <div class="mb-3">
+                        <label class="form-label">Логин</label>
+                        {{ form.login }}
+                        {% if form.login.errors %}
+                            <div class="text-danger" style="font-size: 12px;">{{ form.login.errors.0 }}</div>
+                        {% endif %}
+                        <div class="form-text" style="font-size: 12px;">Латинские буквы и цифры, минимум 6 символов</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Пароль</label>
+                        {{ form.password }}
+                        {% if form.password.errors %}
+                            <div class="text-danger" style="font-size: 12px;">{{ form.password.errors.0 }}</div>
+                        {% endif %}
+                        <div class="form-text" style="font-size: 12px;">Минимум 8 символов</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">ФИО</label>
+                        {{ form.full_name }}
+                        {% if form.full_name.errors %}
+                            <div class="text-danger" style="font-size: 12px;">{{ form.full_name.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Телефон</label>
+                        {{ form.phone }}
+                        {% if form.phone.errors %}
+                            <div class="text-danger" style="font-size: 12px;">{{ form.phone.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">E-mail</label>
+                        {{ form.email }}
+                        {% if form.email.errors %}
+                            <div class="text-danger" style="font-size: 12px;">{{ form.email.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100">Зарегистрироваться</button>
+                </form>
+
+                <div class="text-center mt-3">
+                    <a href="{% url 'login' %}" style="font-size: 14px;">Уже зарегистрированы? <strong>Войти</strong></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
