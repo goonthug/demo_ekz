@@ -1,0 +1,110 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Панель администратора — Учусь.РФ{% endblock %}
+
+{% block content %}
+<h2 style="color: #0d47a1;">Панель администратора</h2>
+<p style="font-size: 14px;">Управление заявками пользователей</p>
+
+<!-- Фильтры и сортировка -->
+<div class="card mb-3">
+    <div class="card-body">
+        <form method="get" class="row g-3 align-items-end">
+            <div class="col-md-3">
+                <label class="form-label">Фильтр по статусу</label>
+                <select name="status" class="form-select" onchange="this.form.submit()">
+                    <option value="">Все заявки</option>
+                    <option value="new" {% if status_filter == 'new' %}selected{% endif %}>Новая</option>
+                    <option value="in_progress" {% if status_filter == 'in_progress' %}selected{% endif %}>Идет обучение</option>
+                    <option value="completed" {% if status_filter == 'completed' %}selected{% endif %}>Обучение завершено</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Сортировка</label>
+                <select name="sort" class="form-select" onchange="this.form.submit()">
+                    <option value="-created_at" {% if sort_by == '-created_at' %}selected{% endif %}>Сначала новые</option>
+                    <option value="created_at" {% if sort_by == 'created_at' %}selected{% endif %}>Сначала старые</option>
+                    <option value="status" {% if sort_by == 'status' %}selected{% endif %}>По статусу</option>
+                    <option value="user__full_name" {% if sort_by == 'user__full_name' %}selected{% endif %}>По ФИО</option>
+                </select>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Таблица заявок -->
+{% if applications %}
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Пользователь</th>
+                    <th>Курс</th>
+                    <th>Дата начала</th>
+                    <th>Оплата</th>
+                    <th>Статус</th>
+                    <th>Действия</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for app in applications %}
+                <tr>
+                    <td>{{ app.id }}</td>
+                    <td>{{ app.user.full_name }}<br><small style="font-size: 12px; color: #6c757d;">{{ app.user.email }}</small></td>
+                    <td>{{ app.course.name }}</td>
+                    <td>{{ app.start_date|date:"d.m.Y" }}</td>
+                    <td>{{ app.get_payment_method_display }}</td>
+                    <td>
+                        {% if app.status == 'new' %}
+                            <span class="badge bg-secondary">Новая</span>
+                        {% elif app.status == 'in_progress' %}
+                            <span class="badge bg-primary">Идет обучение</span>
+                        {% elif app.status == 'completed' %}
+                            <span class="badge bg-success">Обучение завершено</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <div class="btn-group btn-group-sm">
+                            <form method="post" class="d-inline">
+                                {% csrf_token %}
+                                <input type="hidden" name="app_id" value="{{ app.id }}">
+                                {% if app.status != 'in_progress' %}
+                                    <button type="submit" name="new_status" value="in_progress" class="btn btn-outline-primary" title="Идет обучение">▶</button>
+                                {% endif %}
+                                {% if app.status != 'completed' %}
+                                    <button type="submit" name="new_status" value="completed" class="btn btn-outline-success" title="Завершено">✓</button>
+                                {% endif %}
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Пагинация -->
+    {% if total_pages > 1 %}
+    <nav>
+        <ul class="pagination justify-content-center">
+            {% if page > 1 %}
+                <li class="page-item"><a class="page-link" href="?page={{ page|add:'-1' }}&status={{ status_filter }}&sort={{ sort_by }}">← Назад</a></li>
+            {% endif %}
+            {% for p in total_pages|make_list %}
+                <li class="page-item {% if forloop.counter == page %}active{% endif %}">
+                    <a class="page-link" href="?page={{ forloop.counter }}&status={{ status_filter }}&sort={{ sort_by }}">{{ forloop.counter }}</a>
+                </li>
+            {% endfor %}
+            {% if page < total_pages %}
+                <li class="page-item"><a class="page-link" href="?page={{ page|add:'1' }}&status={{ status_filter }}&sort={{ sort_by }}">Вперед →</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+
+    <p class="text-center" style="font-size: 12px; color: #6c757d;">Всего заявок: {{ total }}</p>
+{% else %}
+    <div class="alert alert-info">Заявок не найдено</div>
+{% endif %}
+{% endblock %}
